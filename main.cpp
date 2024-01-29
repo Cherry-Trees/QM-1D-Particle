@@ -41,12 +41,17 @@ ComplexMatrix potential(ComplexMatrix x) {
 }
 
 // Integrate the Schrodinger equation with respect to time
-ComplexMatrix rk4_iter(ComplexMatrix (*f)(ComplexMatrix, double, double, ComplexMatrix), ComplexMatrix waveFuncImage, double dt, double hbar, double m, ComplexMatrix potentialFuncImage) {
+ComplexMatrix rk4_iter(ComplexMatrix (*f)(ComplexMatrix, double, double, ComplexMatrix), 
+  ComplexMatrix waveFuncImage, double dt, double hbar, double m, ComplexMatrix potentialFuncImage)
+{
   ComplexMatrix k1 = ComplexMatrix::multiply(f(waveFuncImage, hbar, m, potentialFuncImage), dt);
-  ComplexMatrix k2 = ComplexMatrix::multiply(f(ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(k1, 0.5)), hbar, m, potentialFuncImage), dt);
-  ComplexMatrix k3 = ComplexMatrix::multiply(f(ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(k2, 0.5)), hbar, m, potentialFuncImage), dt);
+  ComplexMatrix k2 = ComplexMatrix::multiply(f(ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(k1, 0.5)), 
+    hbar, m, potentialFuncImage), dt);
+  ComplexMatrix k3 = ComplexMatrix::multiply(f(ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(k2, 0.5)), 
+    hbar, m, potentialFuncImage), dt);
   ComplexMatrix k4 = ComplexMatrix::multiply(f(ComplexMatrix::add(waveFuncImage, k3), hbar, m, potentialFuncImage), dt);
-  return ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(ComplexMatrix::add(ComplexMatrix::add(k1, ComplexMatrix::multiply(k2, 2)), ComplexMatrix::add(ComplexMatrix::multiply(k3, 2), k4)), (double)1/6));
+  return ComplexMatrix::add(waveFuncImage, ComplexMatrix::multiply(ComplexMatrix::add(ComplexMatrix::add(k1, ComplexMatrix::multiply(k2, 2)), 
+    ComplexMatrix::add(ComplexMatrix::multiply(k3, 2), k4)), (double)1/6));
 }
 
 int main() {
