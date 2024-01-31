@@ -2,11 +2,15 @@
 #include <vector>
 #include "Complex.h"
 #pragma once
-using namespace std;
 
-class ComplexMatrix {
+namespace cmatrix {
+  class ComplexMatrix;
+}
+
+class cmatrix::ComplexMatrix {
   public:
     int length;
+    vector<Complex> array;
     
     ComplexMatrix(const vector<Complex> &init_array);
     static ComplexMatrix Zeros(const int array_length);
@@ -20,20 +24,20 @@ class ComplexMatrix {
     
     static Complex sum(ComplexMatrix a); 
     static ComplexMatrix mod(ComplexMatrix a);
-    static ComplexMatrix slice(const int lower_bound, const int upper_bound, ComplexMatrix a);
-    static ComplexMatrix add(ComplexMatrix a, ComplexMatrix b);
-    static ComplexMatrix add(ComplexMatrix a, Complex z);
-    static ComplexMatrix add(ComplexMatrix a, const double val);
-    static ComplexMatrix multiply(ComplexMatrix a, ComplexMatrix b);
-    static ComplexMatrix multiply(ComplexMatrix a, Complex z);
-    static ComplexMatrix multiply(ComplexMatrix a, const double val);
-    static ComplexMatrix divide(ComplexMatrix a, ComplexMatrix b);
-    static ComplexMatrix divide(ComplexMatrix a, Complex z);
-    static ComplexMatrix divide(ComplexMatrix a, const double val);
+    ComplexMatrix slice(const int lower_bound, const int upper_bound);
+    ComplexMatrix operator+(ComplexMatrix b);
+    ComplexMatrix operator+(Complex z);
+    ComplexMatrix operator+(const double val);
+    ComplexMatrix operator-(ComplexMatrix b);
+    ComplexMatrix operator-(Complex z);
+    ComplexMatrix operator-(const double val);
+    ComplexMatrix operator*(ComplexMatrix b);
+    ComplexMatrix operator*(Complex z);
+    ComplexMatrix operator*(const double val);
+    ComplexMatrix operator/(ComplexMatrix b);
+    ComplexMatrix operator/(Complex z);
+    ComplexMatrix operator/(const double val);
     static ComplexMatrix square(ComplexMatrix a);
     static ComplexMatrix csqrt(ComplexMatrix a);
     static ComplexMatrix cexp(ComplexMatrix a);
-  
-  private:
-    vector<Complex> array;
 };
