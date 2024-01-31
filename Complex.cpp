@@ -25,26 +25,32 @@ double Complex::mod(Complex z) {
 double Complex::arg(Complex z) {
       return atan2(z.imag, z.real);}
 
-Complex Complex::add(Complex z1, Complex z2) {
-  return Complex(z1.real + z2.real, z1.imag + z2.imag);}
+Complex Complex::operator+(Complex z) {
+  return Complex(real + z.real, imag + z.imag);}
   
-Complex Complex::add(Complex z, const double val) {
-  return Complex(z.real + val, z.imag);}
-  
-Complex Complex::multiply(Complex z1, Complex z2) {
-  return Complex(z1.real * z2.real - z1.imag * z2.imag, 
-    z1.real * z2.imag + z1.imag * z2.real);}
+Complex Complex::operator+(const double val) {
+  return Complex(real + val, imag);}
 
-Complex Complex::multiply(Complex z, const double val) {
-  return Complex(z.real * val, z.imag * val);}
-
-Complex Complex::divide(Complex z1, Complex z2) {
-  return Complex((z1.real * z2.real + z1.imag * z2.imag) 
-    / (z2.real * z2.real + z2.imag * z2.imag), (z1.imag * z2.real
-    - z1.real * z2.imag) / (z2.real * z2.real + z2.imag * z2.imag));}
+Complex Complex::operator-(Complex z) {
+  return Complex(real - z.real, imag - z.imag);}
   
-Complex Complex::divide(Complex z, const double val) {
-  return Complex((double)z.real / val, (double)z.imag / val);}
+Complex Complex::operator-(const double val) {
+  return Complex(real - val, imag);}
+  
+Complex Complex::operator*(Complex z) {
+  return Complex(real * z.real - imag * z.imag, 
+    real * z.imag + imag * z.real);}
+
+Complex Complex::operator*(const double val) {
+  return Complex(real * val, imag * val);}
+
+Complex Complex::operator/(Complex z) {
+  return Complex((real * z.real + imag * z.imag) 
+    / (z.real * z.real + z.imag * z.imag), (imag * z.real
+    - real * z.imag) / (z.real * z.real + z.imag * z.imag));}
+  
+Complex Complex::operator/(const double val) {
+  return Complex((double)real / val, (double)imag / val);}
     
 Complex Complex::square(Complex z) {
   return Complex(z.real * z.real - z.imag * z.imag, 2 * z.real * z.imag);}
